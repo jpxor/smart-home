@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 """
     LifX Smart Lights Script: evening schedule
     Copyright (C) 2022 Josh Simonot
@@ -219,7 +219,8 @@ def reset_device_states(devices, saved_states):
 
 def main():
     if len(sys.argv) < 2:
-        print("Provide names for the lights and/or groups to control\n")
+        print("Provide names for the lights and/or groups to control:\n")
+        print("  ./evening-lights.py [light_name] [group_name]\n")
         exit(1)
 
     print("Discovering lights...")
