@@ -70,7 +70,7 @@ def request_sunrise_sunset(lat: float, lng: float, date: datetime):
 
     # expect exception if request fails, parsing json fails,
     # there are no results, or date format changes
-    payload = requests.get(url+params).json()["results"]
+    payload = requests.get(url+params, timeout=5).json()["results"]
     sunrise = datetime.strptime(payload["sunrise"], "%Y-%m-%dT%H:%M:%S%z")
     sunset = datetime.strptime(payload["sunset"], "%Y-%m-%dT%H:%M:%S%z")
     return (sunrise, sunset)
@@ -85,9 +85,9 @@ def get_sunset_or_default(lat: float, lng: float, date: datetime) -> datetime:
     except Exception as e:
         print("warning: exception raised while requesting sunrise-sunset")
         print(e)
-        # fallback to default time of 6PM
-        local_date = date.astimezone().date
-        local_time = _time(hour=18, minute=0, second=0)
+        # fallback to default time of 5:30 PM
+        local_date = date.astimezone().date()
+        local_time = _time(hour=17, minute=30, second=0)
         return utc_datetime(local_date, local_time)
 
 
